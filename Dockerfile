@@ -14,6 +14,24 @@ WORKDIR /app
 RUN curl -sS https://getcomposer.org/installer | php
 RUN php composer.phar install --no-dev --optimize-autoloader
 
+# Utiliser l'image officielle de PostgreSQL avec PostGIS
+FROM postgis/postgis:latest
+
+# Configurer le volume pour persister la base de données
+VOLUME /var/lib/postgresql/data
+
+# Définir l'utilisateur et le mot de passe par défaut pour la base de données
+ENV POSTGRES_USER=postgres
+ENV POSTGRES_PASSWORD=postgres
+ENV POSTGRES_DB=escape_game
+
+# Exposer le port par défaut de PostgreSQL
+EXPOSE 5434
+
+docker exec -it postgis psql -U postgres -d escape_game
+
+psql -U admin -d mydatabase -f ./MY_escape_game.sql
+
 # Exposer le port pour le serveur
 EXPOSE 8000
 
