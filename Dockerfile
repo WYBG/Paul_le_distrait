@@ -28,10 +28,6 @@ ENV POSTGRES_DB=escape_game
 # Exposer le port par défaut de PostgreSQL
 EXPOSE 5434
 
-docker exec -it postgis psql -U postgres -d escape_game
-
-psql -U admin -d mydatabase -f ./MY_escape_game.sql
-
 # Exposer le port pour le serveur
 EXPOSE 8000
 
