@@ -1,6 +1,3 @@
-DROP TABLE objets;
-DROP TABLE joueurs;
-
 CREATE TABLE objets (id integer generated always as identity PRIMARY KEY,
 nom character varying,
 objet_type character varying,
@@ -16,6 +13,9 @@ minZoom integer,
 geometrie geometry
 
 );
+
+-- Activer l'extension PostGIS
+CREATE EXTENSION IF NOT EXISTS postgis;
 
 INSERT INTO objets (nom, objet_type,importance, indice, img, taille, position_ancre, objet_debloque, objet_libere, debut, minzoom, geometrie) 
 VALUES 

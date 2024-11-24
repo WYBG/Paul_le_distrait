@@ -1,69 +1,44 @@
 version: '3.8'
 
 services:
-  php:
+  postgis:
     build:
       context: .
-      dockerfile: Dockerfile-php
-    volumes:
-      - .:/app
-    ports:
-      - "8000:8000"
-    depends_on:
-      - postgres
-
-  postgres:
-    build:
-      context: .
-      dockerfile: Dockerfile-postgis
+      dockerfile: POSTGIS
+    container_name: postgis
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: escape_game
+      POSTGRES_DB: france_data
     ports:
       - "5434:5434"
     volumes:
-      - pgdata:/var/lib/postgresql/data
-
-volumes:
-  pgdata:
-
-services:
-  php:
-    build:
-      context: .
-      dockerfile: Dockerfile-php
-    volumes:
-      - .:/app
-    ports:
-      - "8000:8000"
-    depends_on:
-      - postgres
-
-  postgres:
-    build:
-      context: .
-      dockerfile: Dockerfile-postgis
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: escape_game
-    ports:
-      - "5434:5434"
-    volumes:
-      - pgdata:/var/lib/postgresql/data
+      - postgis_data:/var/lib/postgresql/data
 
   geoserver:
-    image: oscarfonts/geoserver:latest
-    environment:
-      - GEOSERVER_ADMIN_PASSWORD=admin
-      - GEOSERVER_ADMIN_USER=geoserver
+    build:
+      context: .
+      dockerfile: GEOSERVER
+    container_name: geoserver
+    depends_on:
+      - postgis
     ports:
       - "8080:8080"
-    depends_on:
-      - postgres
     volumes:
-      - ./data:/opt/geoserver/data_dir  # Persister les données de GeoServer
+      - geoserver_data:/var/geoserver_data
+
+  php:
+    build:
+      context: .
+      dockerfile: PHP
+    container_name: php_app
+    depends_on:
+      - postgis
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./php:/var/www/html
 
 volumes:
-  pgdata:
+  postgis_data:
+  geoserver_data:
