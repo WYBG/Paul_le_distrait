@@ -1,0 +1,414 @@
+/*---------------------------------------------------*/
+/*-------------------Partie Accueil----------------------*/
+/*---------------------------------------------------*/
+/* Conteneur principal */
+#accueil {
+  display: flex; 
+  flex-direction: column; 
+  align-items: center; 
+  animation: fadeIn 1s ease-in-out;
+  background-color: #f8f8f8; /* Fond léger et neutre */
+  padding: 30px 15px; /* Espacement interne */
+  border-radius: 12px; /* Coins arrondis */
+  max-width: 90vw; /* Limite la largeur pour un contenu centré */
+  margin: 0 auto; /* Centre la section sur la page */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* Ombre subtile */
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Introduction */
+#intro {
+  display: flex; 
+  flex-direction: column; 
+  align-items: center; 
+  text-align: center; /* Centrer le texte */
+  margin-bottom: 30px; /* Espacement avec le formulaire */
+}
+
+#intro img {
+  width: 100%; /* S'adapte à la largeur disponible */
+  max-width: 600px; /* Limite la taille maximale */
+  height: auto; /* Maintient les proportions */
+  margin: 20px 0; /* Espacement autour de l'image */
+  border-radius: 8px; /* Coins légèrement arrondis */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre subtile */
+}
+
+/* Titres */
+.titre {
+  font-weight: bold; 
+  font-size: 2.5rem; 
+  color: #333; /* Couleur sobre */
+  margin-bottom: 10px; 
+}
+
+.titre2 {
+  font-size: 1.8rem; 
+  font-weight: bold; 
+  color: #555; /* Couleur plus douce */
+  margin-bottom: 15px; 
+}
+
+/* Texte de présentation */
+.presentation {
+  font-size: 1.2rem; 
+  color: #666; /* Couleur grise subtile */
+  line-height: 1.6; /* Espacement entre les lignes */
+  margin: 0 10%; /* Marges latérales pour centrer */
+}
+
+
+.regle {
+  background-color: #fefefe; /* Fond blanc cassé pour contraste */
+  border: 1px solid #ccc; /* Bordure grise claire pour délimitation */
+  border-radius: 10px; /* Coins arrondis */
+  padding: 20px; /* Espacement interne */
+  margin: 20px auto; /* Centre horizontalement avec espace en haut et bas */
+  max-width: 700px; /* Largeur maximale pour centrer et limiter la taille */
+  font-family: 'Roboto', sans-serif; /* Police moderne et lisible */
+  color: #333; /* Texte sombre mais doux */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre subtile */
+}
+
+/* Centrer les titres */
+.regles-titre {
+  text-align: center;
+  margin-bottom: 20px; /* Espace sous les titres */
+}
+
+/* Espacement entre les puces */
+.regles-list li {
+  margin-bottom: 15px; /* Ajoute de l'espace entre chaque élément */
+}
+
+/* Optionnel : marges pour le conteneur global des règles */
+#regles {
+  margin-top: 20px; /* Espacement au-dessus du conteneur */
+  margin-bottom: 20px; /* Espacement en dessous du conteneur */
+}
+
+/* Formulaire */
+/* Conteneur principal */
+#accueil form {
+  display: flex; 
+  flex-direction: column; 
+  align-items: center; 
+  background-color: #ffffff; /* Fond blanc pour contraste */
+  padding: 20px 30px; /* Espacement interne */
+  border-radius: 10px; /* Coins arrondis */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre subtile */
+  width: 100%; /* S'adapte à la largeur disponible */
+  max-width: 600px; /* Limite la taille maximale */
+}
+
+/* Labels et champs du formulaire */
+form p {
+  font-size: 1.2rem; 
+  color: #444; /* Couleur sombre pour les étiquettes */
+  margin-bottom: 10px; 
+}
+
+form input[type="text"], form select {
+  border: 1px solid #ccc; 
+  border-radius: 5px; 
+  padding: 12px; /* Espacement interne accru */
+  font-size: 1rem; 
+  width: 100%; 
+  margin-bottom: 15px; 
+  transition: border-color 0.3s ease;
+}
+
+form input[type="text"]:focus, form select:focus {
+  border-color: #4CAF50; /* Bordure verte lors du focus */
+  outline: none; 
+  box-shadow: 0 0 5px rgba(76, 175, 80, 0.5); /* Effet lumineux */
+}
+
+/* Bouton de soumission */
+form input[type="submit"] {
+  background-color: #4CAF50; 
+  color: white; 
+  border: none; 
+  border-radius: 25px; /* Bouton arrondi */
+  padding: 12px 25px; /* Taille accrue pour plus de confort */
+  font-size: 1rem; 
+  cursor: pointer; 
+  transition: all 0.3s ease;
+}
+
+form input[type="submit"]:hover {
+  background-color: #45a049; 
+  transform: scale(1.1); /* Zoom au survol */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Ombre plus prononcée */
+}
+
+/*---------------------------------------------------*/
+/*-------------------Partie jeu----------------------*/
+/*---------------------------------------------------*/
+
+#jeu {
+  display: grid; /* Organisation en grille pour les différentes zones */
+  grid-template-columns: 100%; /* Une seule colonne */
+  grid-template-rows: 9% 1fr 16%; /* Trois zones avec proportions spécifiques */
+  width: 100vw; /* Prend toute la largeur de l'écran */
+  height: 100vh; /* Prend toute la hauteur de l'écran */
+  margin: 0; /* Supprime les marges */
+  background-color: #f5f5f5; /* Couleur de fond neutre */
+}
+
+.jeu-active {
+  overflow: hidden; /* Cache toute barre de défilement globalement */
+  margin: 0; /* Supprime les marges par défaut */
+}
+
+#jeu #profil {
+  grid-column: 1; /* Occupe toute la largeur */
+  grid-row: 1; /* Premier rangée */
+  height: auto;
+  margin: 0;
+  padding: 15px;
+  display: flex; /* Organisation en ligne */
+  justify-content: space-between; /* Espacement entre les éléments */
+  align-items: center;
+  background: #ffffff; /* Fond blanc */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Ombre subtile */
+  border-bottom: 1px solid #ddd; /* Bordure pour séparer visuellement */
+}
+
+#jeu #profil img {
+  height: 8vh;
+  width: auto;
+  border-radius: 50%; /* Rond pour l'image de profil */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Effet d'ombre */
+}
+
+#jeu #profil p {
+  font-size: 1.3rem;
+  color: #333;
+  margin: 0 10px;
+}
+
+.triche {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+
+#carte {
+  grid-column: 1; /* Occupe toute la largeur */
+  grid-row: 2; /* Deuxième rangée */
+  background-color: #e8f0f7; /* Fond bleu clair */
+  border: 1px solid #d0d7de;
+  border-radius: 10px;
+  margin: 1.5%  5%; 
+  width: 90%; /* Largeur ajustée */
+  height: 95%; /* Prend toute la hauteur disponible */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#inventaire {
+  grid-column: 1; /* Occupe toute la largeur */
+  grid-row: 3; /* Dernière ligne */
+  background-color: #ffffff;
+  border-top: 1px solid #ddd; /* Séparation avec la carte */
+  padding: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#inventaire ul {
+  display: flex; /* Organisation en ligne */
+  gap: 15px; /* Espacement entre les objets */
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.objets_inventaitre {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 12vh;
+  width: 12vh;
+  border: 1px solid #ccc; /* Bordure neutre */
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  cursor: pointer;
+  transition: transform 0.2s, background-color 0.2s;
+}
+
+.objets_inventaitre img {
+  max-height: 80%;
+  max-width: 80%;
+  border-radius: 5px;
+}
+
+.objets_inventaitre:hover {
+  background-color: #e6f7ff; /* Fond bleu clair au survol */
+  transform: scale(1.1); /* Zoom au survol */
+}
+
+.selected {
+  border: 2px solid #007BFF; /* Bordure bleue pour objet sélectionné */
+  background-color: #e0f3ff; /* Fond bleu clair */
+}
+
+/* Style des boutons */
+.button {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 1rem;
+  color: white;
+  background-color: #007BFF;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.button:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
+
+.button:active {
+  background-color: #004494;
+  transform: translateY(2px);
+}
+
+/* Switch de mode triche */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 25px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  border-radius: 25px;
+  transition: all 0.3s ease;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 19px;
+  width: 19px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:checked + .slider:before {
+  transform: translateX(24px);
+}
+
+/*---------------------------------------------------*/
+/*-------------------Partie HallOfFame ----------------------*/
+/*---------------------------------------------------*/
+
+/* Conteneur principal */
+#HallOfFame {
+  background-color: #ffffff; /* Fond blanc pour un look moderne */
+  padding: 40px 20px; /* Augmenter légèrement le padding */
+  border-radius: 12px; /* Coins légèrement plus arrondis */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Ombre plus douce et profonde */
+  margin-top: 30px; /* Marges supérieures pour plus de respiration */
+  text-align: center;
+  max-width: 800px; /* Limiter la largeur pour mieux centrer le contenu */
+  margin-left: auto; 
+  margin-right: auto; /* Centrer horizontalement */
+}
+
+/* Style du titre principal */
+#HallOfFame h2 {
+  font-size: 2.4rem; /* Augmenter légèrement la taille de la police */
+  color: #444444; /* Couleur plus douce que le noir */
+  font-weight: bold;
+  margin-bottom: 10px; /* Réduire légèrement la marge */
+}
+
+/* Sous-titres */
+#HallOfFame p {
+  font-size: 1.2rem;
+  color: #777777; /* Couleur grise subtile */
+  margin-bottom: 8px;
+}
+
+/* Style du tableau */
+table {
+  width: 100%; /* Garder le tableau responsive */
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+table th, table td {
+  padding: 12px 20px; /* Uniformiser le padding */
+  text-align: center; /* Centrer le contenu pour plus d'équilibre visuel */
+  border-bottom: 1px solid #dddddd; /* Ligne discrète pour séparer les cellules */
+}
+
+table th {
+  background-color: #4CAF50; /* Garder une couleur vive et attractive */
+  color: #ffffff;
+  font-size: 1.3rem;
+  text-transform: uppercase; /* Capitaliser les en-têtes */
+}
+
+table td {
+  font-size: 1rem;
+  color: #555555; /* Couleur du texte */
+}
+
+/* Style des images */
+#HallOfFame img {
+  height: 8vh;
+  width: 6vw;
+  border-radius: 50%; /* Rendre les images circulaires */
+  border: 2px solid #cccccc; /* Ajout d'une bordure subtile */
+}
+
+/* Style du bouton */
+button.rejouer {
+  background-color: #4CAF50; /* Vert attractif */
+  color: #ffffff;
+  border: none;
+  padding: 12px 25px; /* Rendre le bouton plus grand */
+  border-radius: 25px; /* Style bouton arrondi */
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+button.rejouer:hover {
+  background-color: #45a049; /* Effet au survol */
+  transform: scale(1.05); /* Léger agrandissement au survol */
+}
