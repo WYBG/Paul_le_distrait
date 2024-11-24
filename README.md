@@ -1,59 +1,129 @@
-[![Version](http://poser.pugx.org/flightphp/core/version)](https://packagist.org/packages/flightphp/core)
-[![Monthly Downloads](http://poser.pugx.org/flightphp/core/d/monthly)](https://packagist.org/packages/flightphp/core)
-![PHPStan: Level 6](https://img.shields.io/badge/PHPStan-level%206-brightgreen.svg?style=flat)
-[![License](http://poser.pugx.org/flightphp/core/license)](https://packagist.org/packages/flightphp/core)
-[![PHP Version Require](http://poser.pugx.org/flightphp/core/require/php)](https://packagist.org/packages/flightphp/core)
-![Matrix](https://img.shields.io/matrix/flight-php-framework%3Amatrix.org?server_fqdn=matrix.org&style=social&logo=matrix)
+# Paul l'étourdie
 
-# What is Flight?
+## 📖 Présentation
 
-Flight is a fast, simple, extensible framework for PHP. Flight enables you to
-quickly and easily build RESTful web applications.
+**Paul l'étourdie** est un jeu cartographique interactif où les joueurs aident **Paul**, un personnage distrait, à récupérer le mot de passe de son ordinateur. Cela lui permettra de présenter son projet lors d'un forum Géo organisé par l'ENSG. À travers une série d'énigmes, le joueur explore différents lieux, récupère des objets, et débloque des indices pour avancer dans l'histoire.
 
-# Basic Usage
+---
 
-```php
-// if installed with composer
-require 'vendor/autoload.php';
-// or if installed manually by zip file
-// require 'flight/Flight.php';
+## 🛠️ Consignes d'installation
 
-Flight::route('/', function () {
-  echo 'hello world!';
-});
+Voici les composants nécessaires à l'installation et leur version respective :
 
-Flight::start();
-```
+| Composant        | Version      |
+|-------------------|--------------|
+| OpenJDK11U-jre   | 11.0.25_8    |
+| Geoserver        | 2.26.0       |
+| XAMPP            | 3.3.0        |
+| PostgreSQL       | 16           |
 
-## Skeleton App
 
-You can also install a skeleton app. Go to [flightphp/skeleton](https://github.com/flightphp/skeleton) for instructions on how to get started!
+Après avoir installer OpenJDK11U-jre comme environnement JAVA, vous pourrez installer Geoserver. Il faudra fournir le chemin du JRE installé :
 
-# Documentation
+![Texte alternatif](Captures/JRE_geoserver.PNG "Texte au survol")
 
-We have our own documentation website that is built with Flight (naturally). Learn more about the framework at [docs.flightphp.com](https://docs.flightphp.com).
+Nous avons choisi de l'installer en lancement manuel, il faudra donc lancer geoserver et s'authentifier pour visualiser la carte de chaleur :
 
-# Community
+![Texte alternatif](Captures/Geoserver_manuel.PNG "Texte au survol")
 
-Chat with us on Matrix IRC [#flight-php-framework:matrix.org](https://matrix.to/#/#flight-php-framework:matrix.org)
+Après son installation, récupérez le **dossier MY_escape_game**  à la racine du git qui est notre espace de travail et mettez le dans le dossier workspaces de votre geoserver :
 
-# Upgrading From v2
+![Texte alternatif](Captures/Ajout_workspace.PNG "Texte au survol")
 
-If you have a current project on v2, you should be able to upgrade to v2 with no issues depending on how your project was built. If there are any issues with upgrade, they are documented in the [migrating to v3](https://docs.flightphp.com/learn/migrating-to-v3) documentation page. It is the intention of Flight to maintain longterm stability of the project and to not add rewrites with major version changes.
+Vous aurez aussi besoin d'un Système de gestion de base de données ici pgAdmin. Vous pourrez le télécharger sur le site d'EDB avec PostgreSQL :
 
-# Requirements
+![Texte alternatif](Captures/PGSQL1.PNG "Texte au survol")
 
-> [!IMPORTANT]
-> Flight requires `PHP 7.4` or greater.
+Nous avons intaller notre PostgreSQL sur le port **5434** et télécharger pgAdmin comme une de ses composantes :
 
-**Note:** PHP 7.4 is supported because at the current time of writing (2024) PHP 7.4 is the default version for some LTS Linux distributions. Forcing a move to PHP >8 would cause a lot of heartburn for those users.
+![Texte alternatif](Captures/PGSQL2.PNG "Texte au survol")
 
-The framework also supports PHP >8.
+Nos données étant des données géoréférecées, il sera également important de télécharger PostGIS grâce à Stack builder qui se lancera après son installation parmi les composants :
 
-# Roadmap
+<p align="center">
+  <img src="Captures/Complement_pgsql.png" alt="Image 1" width="45%" style="margin-right:20px;">
+  <img src="Captures/Postgis.PNG" alt="Image 2" width="45%"style="margin-right:20px;">
+</p>
 
-To see the current and future roadmap for the Flight Framework, visit the [project roadmap](https://github.com/orgs/flightphp/projects/1/views/1)
+Après l'installation de pgAdmin, PostgreSQL et PostGIS, vous pourrez créer la base de données nécessaire au jeu :
+- Créer une base de données que vous appelerez escape_game.
+- Ouvrez ensuite une query tool 
+- Il faudra créer une extention PostGIS à votre votre base de données :
 
-# License
+![Texte alternatif](Captures/BDD1.PNG "Texte au survol")
 
-Flight is released under the [MIT](http://docs.flightphp.com/license) license.
+- Vous pourrez ensuite récupérer le fichier **BDD_Diallo_Gagre.sql** à la racine du git et l'exécuter dans la query tool pour créer les tables de la base de donnée :
+  
+![Texte alternatif](Captures/BDD2.PNG "Texte au survol")
+
+ En cas d'utilisation de XAMPP pour le lancement de serveur Apache, il faudra décommenter les extensions pdo_pgsql et pgsql du fichier php.ini en elevant les ";" :
+ 
+![Texte alternatif](Captures/Xampp_ini.PNG "Texte au survol")
+
+Ainsi que changer le chemin du fichier htdocs pour celui de votre **dossier de travail** où votre fichier index.php se trouve dans le fichier httpd.conf :
+
+<p align="center">
+  <img src="Captures/Xampp1.PNG" alt="Image 1" width="45%" style="margin-right:20px;">
+  <img src="Captures/Xampp2.PNG" alt="Image 2" width="45%"style="margin-right:20px;">
+</p>
+
+## 🧩 Solutions des énigmes
+
+Le tableau ci-dessous récapitule les objets à trouver et/ou à récupérer, leur ordre, et leur localisation géographique.
+
+| Objet          | Ordre | Lieu                     | Position (Long, Lat)  |
+|----------------|-------|--------------------------|------------------------|
+| Clé de voiture | 1     | Aéroport d'Orly, proche du logo avion | 2.3670, 48.7278 |
+| Badge Maison   | 2     | Intermarché près de la forêt régionale des Vallières, Thorigny-sur-Marne | 2.7168, 48.8960 |
+| Carnet         | 3     | Hôtel Disney, Chessy     | 2.7883, 48.8704        |
+| Présentation   | 4     | Hall ENSG                | 2.5878, 48.8410        |
+
+Ces objets sont majoritairement bloqués par d'autres objets.
+
+### Objets bloqués et conditions de déblocage
+
+| Objet           | Bloqué ? | Objet bloquant       |
+|------------------|----------|----------------------|
+| Clé de voiture  | Non      | -                    |
+| Badge Maison    | Oui      | Voiture              |
+| Carnet          | Oui      | Maison               |
+| Présentation    | Oui      | Ordinateur           |
+
+---
+
+## 📜 Étapes chronologiques
+
+Le tableau suivant décrit les actions nécessaires pour terminer le jeu.
+
+| Étape | Lieu        | Action                         | Résultat                |
+|-------|-------------|--------------------------------|-------------------------|
+| 1     | ENSG        | Clic sur ordinateur           | Indice mot de passe     |
+| 2     | Maison      | Clic sur Maison               | Indice badge            |
+| 3     | Garage      | Clic sur Voiture              | Indice clé de voiture   |
+| 4     | Aéroport    | Clic sur clé                  | Clé dans inventaire     |
+| 5     | Garage      | Clic sur clé puis sur voiture | Apparition badge        |
+| 6     | Garage      | Clic sur badge                | Badge dans inventaire   |
+| 7     | Maison      | Clic sur Badge puis sur Maison| Apparition carnet       |
+| 8     | ENSG        | Clic sur ordinateur et saisie mot de passe | Apparition Présentation |
+| 9     | ENSG        | Clic sur Présentation         | Tableau des 10 meilleurs joueurs |
+
+⚠️ L’utilisation du bouton **triche** entraîne une pénalité sur le score.
+
+---
+
+## 🚀 Lancement
+
+1. Assurez-vous que tous les composants nécessaires sont installés et configurés correctement.
+2. Lancez geoserver et authentifiez vous.
+3. Lancez XAMPP et démarrez le serveur Apache.
+4. Ouvrez votre navigateur et tapez **localhost** dans la barre URL.
+5. Suivez les étapes du jeu pour résoudre les énigmes.
+6. Profitez de l’expérience et aidez Paul à réussir sa présentation !
+
+---
+
+## 🎯 Objectif
+
+Terminez le jeu en un minimum de temps et de clics pour figurer dans le tableau des **10 meilleurs joueurs** !
+
+Bon jeu ! 🎮
