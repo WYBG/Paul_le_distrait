@@ -1,25 +1,22 @@
-# Utiliser l'image officielle de GeoServer comme image de base
-FROM osgeo/geoserver:latest
+# Utiliser l'image officielle de GeoServer
+FROM kartoza/geoserver:latest
 
-# Définir l'environnement pour GeoServer
-ENV GEOSERVER_DATA_DIR=/opt/geoserver/data_dir
+# Définir les variables d'environnement
+ENV GEOSERVER_HOME=/opt/geoserver \
+    GEOSERVER_DATA_DIR=/opt/geoserver/data_dir
 
-# Copier la configuration personnalisée si tu en as
-# (par exemple, une configuration de style, des couches ou des paramètres spécifiques)
-# COPY ./config /opt/geoserver/data_dir
+# Copier les données personnalisées (styles, shapefiles, configurations, etc.)
+COPY ./geoserver_data/ $GEOSERVER_DATA_DIR/
 
-# Ajouter les CRS spécifiques à la France (EPSG:2154, etc.)
-COPY ./custom_epsg.properties /opt/geoserver/data_dir/user_projections/epsg.properties
+# Installer des extensions GeoServer si nécessaire
+# Par exemple, pour ajouter l'extension GeoJSON output format
+RUN curl -L -o /tmp/geoserver-extension.zip \
+    "https://sourceforge.net/projects/geoserver/files/GeoServer/2.22.2/extensions/geoserver-2.22.2-json.zip" \
+    && unzip /tmp/geoserver-extension.zip -d $GEOSERVER_HOME/webapps/geoserver/WEB-INF/lib/ \
+    && rm /tmp/geoserver-extension.zip
 
-# Télécharger des extensions spécifiques pour GeoServer (comme PostGIS ou WPS)
-RUN wget -q -O /opt/geoserver/webapps/geoserver/WEB-INF/lib/postgis-extension.jar \
-    https://sourceforge.net/projects/geoserver/files/latest/download
-
-# Exposer le port de GeoServer (8080 par défaut)
+# Exposer le port utilisé par GeoServer (par défaut 8080)
 EXPOSE 8080
 
-# Définir le répertoire de travail
-WORKDIR /opt/geoserver
-
-# Démarrer GeoServer avec le script d'entrée par défaut
-CMD ["java", "-Duser.language=fr", "-Duser.country=FR", "-Dfile.encoding=UTF-8", "-jar", "start.jar"]
+# Commande par défaut pour démarrer GeoServer
+CMD ["start-geoserver.sh"]
