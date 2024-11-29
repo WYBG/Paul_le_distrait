@@ -2,14 +2,17 @@
 FROM kartoza/geoserver:latest
 
 # Définir les variables d'environnement
-ENV GEOSERVER_HOME=/opt/geoserver \
+ENV GEOSERVER_ADMIN_USER=admin
+    GEOSERVER_ADMIN_PASSWORD=geoserver
+    GEOSERVER_HOME=/opt/geoserver \
     GEOSERVER_DATA_DIR=/opt/geoserver/data_dir
+    PORT = 8080
 
 # Copier les données personnalisées (styles, shapefiles, configurations, etc.)
 COPY ./geoserver/MY_escape_game/ $GEOSERVER_DATA_DIR/
 
 # Exposer le port utilisé par GeoServer (par défaut 8080)
-EXPOSE 8080
+EXPOSE $PORT
 
 # Commande par défaut pour démarrer GeoServer
 CMD ["start-geoserver.sh"]
