@@ -13,4 +13,4 @@ COPY ./MY_escape_game.sql /docker-entrypoint-initdb.d/
 VOLUME /var/lib/postgresql/data
 
 # Exposer le port par défaut de PostgreSQL (standard 5432)
-EXPOSE 5434
+EXPOSE 5432
