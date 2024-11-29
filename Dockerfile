@@ -1,12 +1,23 @@
-FROM php:8.2-apache
+# Utiliser une image de base PHP
+FROM php:8.1-cli
 
-# Installer les extensions nécessaires
-RUN apt-get update && apt-get install -y \
-    libpq-dev \
-    && docker-php-ext-install pdo pdo_pgsql
+# Installer Composer
+RUN curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer
 
-# Activer mod_rewrite pour Apache
-RUN a2enmod rewrite
+# Installer les dépendances PHP
+RUN apt-get update && apt-get install -y libzip-dev && docker-php-ext-install zip
 
-# Définir le dossier de travail
-WORKDIR /var/www/html
+# Copier les fichiers du projet
+COPY . /app
+
+# Définir le répertoire de travail
+WORKDIR /app
+
+# Installer les dépendances avec Composer
+RUN composer install --no-dev --optimize-autoloader
+
+# Exposer le port pour le serveur
+EXPOSE 8000
+
+# Démarrer le serveur PHP
+CMD ["php", "-S", "0.0.0.0:8000", "-t", "public"]
