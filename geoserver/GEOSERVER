@@ -8,13 +8,6 @@ ENV GEOSERVER_HOME=/opt/geoserver \
 # Copier les données personnalisées (styles, shapefiles, configurations, etc.)
 COPY ./geoserver/MY_escape_game/ $GEOSERVER_DATA_DIR/
 
-# Installer des extensions GeoServer si nécessaire
-# Par exemple, pour ajouter l'extension GeoJSON output format
-RUN curl -L -o /tmp/geoserver-extension.zip \
-    "https://sourceforge.net/projects/geoserver/files/GeoServer/2.22.2/extensions/geoserver-2.22.2-json.zip" \
-    && unzip /tmp/geoserver-extension.zip -d $GEOSERVER_HOME/webapps/geoserver/WEB-INF/lib/ \
-    && rm /tmp/geoserver-extension.zip
-
 # Exposer le port utilisé par GeoServer (par défaut 8080)
 EXPOSE 8080
 
