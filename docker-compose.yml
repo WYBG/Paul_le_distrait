@@ -1,44 +1,36 @@
 version: '3.8'
 
 services:
-  postgis:
-    build:
-      context: .
-      dockerfile: POSTGIS
+   php:
+    build: ./php
+    ports:
+      - "8000:00"
+    volumes:
+      - ./php/src:/var/www/html
+    depends_on:
+      - db
+
+  db:
+    image: postgis/postgis:15-3.3
     container_name: postgis
+    ports:
+      - "5434:5434"
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: france_data
-    ports:
-      - "5434:5434"
+      POSTGRES_DB: escape_game
     volumes:
-      - postgis_data:/var/lib/postgresql/data
+      - ./MY_escape_game.sql:/docker-entrypoint-initdb.d/MY_escape_game.sql
 
   geoserver:
-    build:
-      context: .
-      dockerfile: GEOSERVER
-    container_name: geoserver
-    depends_on:
-      - postgis
+    image: kartoza/geoserver
     ports:
       - "8080:8080"
     volumes:
-      - geoserver_data:/var/geoserver_data
+      - :/opt/geoserver/data_dir
 
-  php:
-    build:
-      context: .
-      dockerfile: PHP
-    container_name: php_app
-    depends_on:
-      - postgis
-    ports:
-      - "8000:8000"
-    volumes:
-      - ./php:/var/www/html
+ 
 
-volumes:
-  postgis_data:
-  geoserver_data:
+networks:
+  default:
+    driver: bridge
