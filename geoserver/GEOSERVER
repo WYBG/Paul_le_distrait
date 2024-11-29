@@ -6,7 +6,7 @@ ENV GEOSERVER_HOME=/opt/geoserver \
     GEOSERVER_DATA_DIR=/opt/geoserver/data_dir
 
 # Copier les données personnalisées (styles, shapefiles, configurations, etc.)
-COPY ./MY_escape_game/ $GEOSERVER_DATA_DIR/
+COPY ./geoserver/MY_escape_game/ $GEOSERVER_DATA_DIR/
 
 # Installer des extensions GeoServer si nécessaire
 # Par exemple, pour ajouter l'extension GeoJSON output format
