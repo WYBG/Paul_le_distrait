@@ -4,7 +4,6 @@ FROM postgis/postgis:latest
 # Définir l'utilisateur, le mot de passe et le nom de la base de données par défaut
 ENV POSTGRES_USER=postgres
 ENV POSTGRES_PASSWORD=postgres
-ENV POSTGRES_DB=escape_game
 
 # Copier le fichier SQL d'initialisation dans le répertoire d'initialisation
 COPY ./MY_escape_game.sql /docker-entrypoint-initdb.d/
