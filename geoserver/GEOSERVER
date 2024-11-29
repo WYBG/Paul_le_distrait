@@ -6,7 +6,7 @@ ENV GEOSERVER_ADMIN_USER=admin \
     GEOSERVER_ADMIN_PASSWORD=geoserver \
     GEOSERVER_HOME=/opt/geoserver \
     GEOSERVER_DATA_DIR=/opt/geoserver/data_dir \
-    PORT=8080
+    PORT=10000
 
 # Copier les données personnalisées (styles, shapefiles, configurations, etc.)
 COPY ./geoserver/MY_escape_game /var/local/geoserver_data/workspace
