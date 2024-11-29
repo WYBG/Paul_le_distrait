@@ -23,7 +23,7 @@ RUN apt-get update && apt-get install -y wget unzip \
     && rm -rf /var/lib/apt/lists/*
 
 # Exposer le port utilisé par GeoServer (par défaut 8080)
-EXPOSE 8080
+EXPOSE $PORT
 
 # Commande par défaut pour démarrer GeoServer
 CMD ["start-geoserver.sh"]
