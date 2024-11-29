@@ -2,14 +2,25 @@
 FROM kartoza/geoserver:latest
 
 # Définir les variables d'environnement
-ENV GEOSERVER_ADMIN_USER=admin
-ENV GEOSERVER_ADMIN_PASSWORD=geoserver
-ENV GEOSERVER_HOME=/opt/geoserver \
-    GEOSERVER_DATA_DIR=/opt/geoserver/data_dir
-ENV PORT = 8080
+ENV GEOSERVER_ADMIN_USER=admin \
+    GEOSERVER_ADMIN_PASSWORD=geoserver \
+    GEOSERVER_HOME=/opt/geoserver \
+    GEOSERVER_DATA_DIR=/opt/geoserver/data_dir \
+    PORT = 8080
 
 # Copier les données personnalisées (styles, shapefiles, configurations, etc.)
-COPY ./geoserver/MY_escape_game/ $GEOSERVER_DATA_DIR/
+COPY MY_escape_game /var/local/geoserver_data/workspace
+
+# Répertoire pour les extensions GeoServer
+WORKDIR /opt/geoserver
+
+# Télécharger et installer les extensions GeoServer PostGIS
+RUN apt-get update && apt-get install -y wget unzip \
+    && wget -q https://sourceforge.net/projects/geoserver/files/GeoServer/2.22.2/extensions/geoserver-2.22.2-postgis-plugin.zip -O postgis-plugin.zip \
+    && unzip postgis-plugin.zip -d /opt/geoserver/webapps/geoserver/WEB-INF/lib \
+    && rm postgis-plugin.zip \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 # Exposer le port utilisé par GeoServer (par défaut 8080)
 EXPOSE 8080
