@@ -2,11 +2,11 @@ version: '3.8'
 
 services:
    php:
-    build: ./php
+    build: ./
     ports:
       - "8000:00"
     volumes:
-      - ./php/src:/var/www/html
+      - .:/var/www/html
     depends_on:
       - db
 
@@ -27,9 +27,7 @@ services:
     ports:
       - "8080:8080"
     volumes:
-      - :/opt/geoserver/data_dir
-
- 
+      - ./:/opt/geoserver/data_dir
 
 networks:
   default:
