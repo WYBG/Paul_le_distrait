@@ -4,9 +4,9 @@ services:
    php:
     build: ./
     ports:
-      - "8000:00"
+      - "8000:80"
     volumes:
-      - .:/var/www/html
+      - ./:/var/www/html
     depends_on:
       - db
 
@@ -27,7 +27,7 @@ services:
     ports:
       - "8080:8080"
     volumes:
-      - ./:/opt/geoserver/data_dir
+      - ./geoserver/:/opt/geoserver/data_dir
 
 networks:
   default:
