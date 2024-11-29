@@ -9,7 +9,7 @@ ENV GEOSERVER_ADMIN_USER=admin \
     PORT=8080
 
 # Copier les données personnalisées (styles, shapefiles, configurations, etc.)
-COPY MY_escape_game /var/local/geoserver_data/workspace
+COPY ./geoserver/MY_escape_game /var/local/geoserver_data/workspace
 
 # Répertoire pour les extensions GeoServer
 WORKDIR /opt/geoserver
