@@ -9,7 +9,7 @@ ENV GEOSERVER_HOME=/opt/geoserver \
 COPY ./geoserver/MY_escape_game/ $GEOSERVER_DATA_DIR/
 
 # Exposer le port utilisé par GeoServer (par défaut 8080)
-EXPOSE 8080
+EXPOSE 8085
 
 # Commande par défaut pour démarrer GeoServer
 CMD ["start-geoserver.sh"]
