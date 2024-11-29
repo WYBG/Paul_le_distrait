@@ -9,12 +9,6 @@ ENV POSTGRES_USER=postgres
 ENV POSTGRES_PASSWORD=postgres
 ENV POSTGRES_DB=escape_game
 
-# Installer des outils supplémentaires si nécessaires (comme pgAdmin, outils CLI)
-RUN apt-get update && apt-get install -y \
-    wget \
-    unzip \
-    && rm -rf /var/lib/apt/lists/*
-
 COPY ./MY_escape_game.sql /docker-entrypoint-initdb.d/
 
 # Exposer le port par défaut de PostgreSQL
