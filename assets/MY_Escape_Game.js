@@ -320,7 +320,7 @@ Vue.createApp({
             let wmsLayer = null;
             if (this.triche) {
                 this.calcul_score(false)
-                this.wmsLayer = L.tileLayer.wms('http://localhost:8080/geoserver/MY_escape_game/ows?', {
+                this.wmsLayer = L.tileLayer.wms('https://geoserver-002d.onrender.com/geoserver/MY_escape_game/ows?', {
                     layers: 'MY_escape_game:objets',  // Remplacez par le nom de votre couche WMS
                     styles: 'Carte_de_chaleur',
                     format: 'image/png',
