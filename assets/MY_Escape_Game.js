@@ -49,7 +49,7 @@ Vue.createApp({
 
         objets_depart() {
             // console.log("Récupération des objets de départ ....");
-            return fetch('api/objets') // Appel API pour récupérer les objets
+            return fetch('https://paul-le-distrait.onrender.com/api/objets') // Appel API pour récupérer les objets
                 .then(result => result.json())
                 .then(result => { 
                     this.Objets_call = result.tableau; 
@@ -59,7 +59,7 @@ Vue.createApp({
 
         info_objet(id) {
             // console.log("Récupération de l'objet ....");
-            return fetch('api/objets/' + `${id}`) // Appel API pour récupérer un objet spécifique
+            return fetch('https://paul-le-distrait.onrender.com/api/objets/' + `${id}`) // Appel API pour récupérer un objet spécifique
                 .then(result => result.json())
                 .then(result => { 
                     this.data = result.objet[0]; 
